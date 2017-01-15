@@ -69,7 +69,16 @@ function updateListCities() {
     var city;
     cities.forEach(function(element) {
         city = document.createElement("li");
-        city.innerHTML = '<p>' + element.name + '</p>';
+        city.innerHTML = 
+        '<p>' 
+            + element.name + ', ' + element.country +
+            '<ul>' + 
+                '<li>temp: ' + element.temp + '</li>' +
+                '<li>pressure: ' + element.pressure + '</li>' +
+                '<li>humidity: ' + element.humidity + '</li>' +
+            '</ul>' +
+            '<button onclick="removeCity(' + element.id + ')">Delete</button>' +
+        '</p>';
         city.setAttribute("id", element.id);
         listCities.appendChild(city);
     }, this);
