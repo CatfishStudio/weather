@@ -5,8 +5,9 @@ var React = require('react');
 var Router = require('react-router');
 var routes = require('./routes');
 var counterReducer = require('./reducers/counter');
+var citiesReducer = require('./reducers/cities');
 
-myGeolocation();
+var cities = [];
 
 /* React ============================================================ */
 Router.run(routes, function(Handler) {
@@ -16,28 +17,19 @@ Router.run(routes, function(Handler) {
 
 /* Redux ============================================================ */
 var store = Redux.createStore(reducer, {
-    counter: 0
+    counter: 0,
+    cities: []
 });
 
 function reducer(state, action) {
     return {
-        counter: counterReducer(state.counter, action)
+        counter: counterReducer(state.counter, action),
+        cities: citiesReducer(state.cities, action)
     };
 }
 
-window.console.log("1");
 store.subscribe(function(){
     window.console.log(store.getState());
-});
-
-window.console.log("2");
-store.dispatch({
-    type: 'INC_COUNTER'
-});
-
-window.console.log("3");
-store.dispatch({
-    type: 'INC_COUNTER'
 });
 /* ================================================================== */
 
@@ -64,9 +56,29 @@ function getWeatherByName(cityName){
 function onLoadWeatherRequest(){
     var results = JSON.parse(this.responseText);
     if(results.name != '' && results.name != null && results.name != undefined){
-        window.console.log(results.name);
-        window.console.log(results);
+        //window.console.log("results:", results)
+        //window.console.log("name:", results.name);
+        //window.console.log("country:", results.sys.country);
+        
+        cities.push({
+            id: cities.length, 
+            name: results.name, 
+            country: results.sys.country, 
+            temp: convertToCelsius(results.main.temp),
+            pressure: results.main.pressure,
+            humidity: results.main.humidity
+        });
+
+        store.dispatch({
+            type: 'ADD_CITY',
+            payload: [cities]
+        });
+        //window.console.log("cities:", store.getState().cities);
     }
+}
+
+function convertToCelsius(degK) {
+    return Math.round(degK - 273.15);
 }
 /* ================================================================== */
 
@@ -86,4 +98,6 @@ function myGeolocation(){
 
     navigator.geolocation.getCurrentPosition(success, error);
 }
+
+myGeolocation();
 /* ================================================================== */
