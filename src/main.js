@@ -1,14 +1,45 @@
 'use strict';
 
+var Redux = require('redux');
 var React = require('react');
 var Router = require('react-router');
 var routes = require('./routes');
+var counterReducer = require('./reducers/counter');
 
 myGeolocation();
 
+/* React ============================================================ */
 Router.run(routes, function(Handler) {
     React.render(<Handler/>, document.getElementById('app'));
 });
+/* ================================================================== */
+
+/* Redux ============================================================ */
+var store = Redux.createStore(reducer, {
+    counter: 0
+});
+
+function reducer(state, action) {
+    return {
+        counter: counterReducer(state.counter, action)
+    };
+}
+
+window.console.log("1");
+store.subscribe(function(){
+    window.console.log(store.getState());
+});
+
+window.console.log("2");
+store.dispatch({
+    type: 'INC_COUNTER'
+});
+
+window.console.log("3");
+store.dispatch({
+    type: 'INC_COUNTER'
+});
+/* ================================================================== */
 
 /* Open Weather Map ================================================= */
 var OPENWEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather';
