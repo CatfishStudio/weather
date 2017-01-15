@@ -96,9 +96,25 @@ function onButtonClick() {
     }
 }
 
+function onResize() {
+    var header = document.getElementsByTagName('header')[0];
+    header.style.marginTop = 2 + '%';
+    header.style.marginLeft = (window.innerWidth / 100 * 1.5) + '%';
+    header.style.marginRight = (window.innerWidth / 100 * 1.5) + '%';
+
+    var section = document.getElementsByTagName('section')[0];
+    section.style.marginTop = 2 + '%';
+    section.style.marginLeft = (window.innerWidth / 100 * 1.8) + '%';
+    section.style.marginRight = (window.innerWidth / 100 * 1.8) + '%';
+
+
+    var listCities = document.getElementById('listCities');
+    listCities.style.height = (window.innerHeight / 2) + 'px';
+}
+
 function onLoad() {
     cities = [];
     ids = 0;
-    document.getElementById('listCities').style.height = (window.innerHeight / 2) + 'px';
+    onResize();
     myGeolocation();
 }
