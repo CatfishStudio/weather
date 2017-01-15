@@ -35,7 +35,6 @@ function onLoadWeatherRequest(){
             humidity: results.main.humidity
         };
         updateListCities();
-        window.console.log("[cities]:", cities);
     }
 }
 
@@ -70,14 +69,14 @@ function updateListCities() {
     cities.forEach(function(element) {
         city = document.createElement("li");
         city.innerHTML = 
-        '<p>' 
-            + element.name + ', ' + element.country +
+        '<p>' +
+            '<h4>'+ element.name + ', ' + element.country + '</h4>' +
             '<ul>' + 
                 '<li>temp: ' + element.temp + '</li>' +
                 '<li>pressure: ' + element.pressure + '</li>' +
                 '<li>humidity: ' + element.humidity + '</li>' +
             '</ul>' +
-            '<button onclick="removeCity(' + element.id + ')">Delete</button>' +
+            '<button class="buttonDelete" onclick="removeCity(' + element.id + ')">Delete</button>' +
         '</p>';
         city.setAttribute("id", element.id);
         listCities.appendChild(city);
@@ -100,5 +99,6 @@ function onButtonClick() {
 function onLoad() {
     cities = [];
     ids = 0;
+    document.getElementById('listCities').style.height = (window.innerHeight / 2) + 'px';
     myGeolocation();
 }
