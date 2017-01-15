@@ -23,3 +23,15 @@
 <p align="center">
   <img src="http://somov.hol.es/projects/weather/img/image.png" width="480">
 </p>
+
+# Предупреждение
+Если при получании геолокации вам выдаёт такое сообщение:
+
+<p align="center">
+  <img src="http://somov.hol.es/projects/weather/img/imageError.png" width="480">
+</p>
+
+Это из за того что проложение размещено на HTTP хостинге, для корректой работы геолокации необходим HTTPS хостинг.
+
+getCurrentPosition() and watchPosition() no longer work on insecure origins. 
+To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details
