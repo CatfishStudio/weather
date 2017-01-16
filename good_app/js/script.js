@@ -61,6 +61,27 @@ function myGeolocation(){
 }
 /* ================================================================== */
 
+/* Storage ========================================================== */
+function setStorage() {
+    var cityNames = [];
+    cities.forEach(function(element) {
+        cityNames.push(element.name);
+    }, this);
+    sessionStorage.setItem("cities", cityNames);
+}
+
+function getStorage() {
+    var dataStorage = sessionStorage.getItem("cities");
+    if(dataStorage !== null && dataStorage !== undefined && dataStorage !== ""){
+        var cityNames = dataStorage.split(',');
+        for(var i = 0; i < cityNames.length; i++) {
+            getWeatherByName(cityNames[i]);
+        }
+    }
+}
+/* ================================================================== */
+
+
 function updateListCities() {
     var listCities = document.getElementById('listCities');
     listCities.innerHTML = "";
@@ -81,6 +102,7 @@ function updateListCities() {
         city.setAttribute("id", element.id);
         listCities.appendChild(city);
     }, this);
+    setStorage();
 }
 
 function removeCity(id) {
@@ -122,5 +144,6 @@ function onLoad() {
     cities = [];
     ids = 0;
     onResize();
+    getStorage();
     myGeolocation();
 }
