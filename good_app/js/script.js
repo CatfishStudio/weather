@@ -96,6 +96,12 @@ function onButtonClick() {
     }
 }
 
+function onKeyPress(event) {
+    if (event.keyCode == 13) {
+        onButtonClick();
+    }
+}
+
 function onResize() {
     var header = document.getElementsByTagName('header')[0];
     header.style.marginTop = 2 + '%';

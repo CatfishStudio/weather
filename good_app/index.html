@@ -10,7 +10,7 @@
         <header>
             <h1>Weather App</h1>
             <p>
-                <input type="text" id="inputText" placeholder="Enter city name" />
+                <input type="text" id="inputText" placeholder="Enter city name" onkeypress="return onKeyPress(event)" />
                 <button id="buttonAdd" onclick="onButtonClick()">ADD CITY</button>
             </p>
         </header>
